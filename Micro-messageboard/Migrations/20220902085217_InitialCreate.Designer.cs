@@ -11,13 +11,49 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Micro_messageboard.Migrations
 {
     [DbContext(typeof(MicroMessageBoardContext))]
-    [Migration("20220902072139_InitialCreate")]
+    [Migration("20220902085217_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
+
+            modelBuilder.Entity("Micro_messageboard.Models.Post", b =>
+                {
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Post", (string)null);
+                });
 
             modelBuilder.Entity("Micro_messageboard.Models.User", b =>
                 {
@@ -53,6 +89,22 @@ namespace Micro_messageboard.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("Micro_messageboard.Models.Post", b =>
+                {
+                    b.HasOne("Micro_messageboard.Models.User", "User")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Micro_messageboard.Models.User", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

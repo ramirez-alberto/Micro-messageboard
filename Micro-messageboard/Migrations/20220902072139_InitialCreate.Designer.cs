@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Micro_messageboard.Migrations
 {
     [DbContext(typeof(MicroMessageBoardContext))]
-    [Migration("20220902065612_InitialCreate")]
+    [Migration("20220902072139_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,6 @@ namespace Micro_messageboard.Migrations
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("BLOB");
 

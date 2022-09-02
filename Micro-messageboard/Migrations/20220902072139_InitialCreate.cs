@@ -20,7 +20,7 @@ namespace Micro_messageboard.Migrations
                     Password = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: false)
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {

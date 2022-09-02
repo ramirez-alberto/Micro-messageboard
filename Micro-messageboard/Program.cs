@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Micro_messageboard.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<MicroMessageBoardContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("MicroMessageBoardContext") ?? throw new InvalidOperationException("Connection string 'MvcArticleContext' not found.")));
 
 var app = builder.Build();
 

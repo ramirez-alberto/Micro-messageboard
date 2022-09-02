@@ -22,9 +22,9 @@ namespace Micro_messageboard.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-              return _context.Users != null ? 
-                          View(await _context.Users.ToListAsync()) :
-                          Problem("Entity set 'MicroMessageBoardContext.Users'  is null.");
+            return _context.Users != null ?
+                        View(await _context.Users.ToListAsync()) :
+                        Problem("Entity set 'MicroMessageBoardContext.Users'  is null.");
         }
 
         // GET: Users/Details/5
@@ -56,8 +56,18 @@ namespace Micro_messageboard.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,UserName,Email,Password,CreationTime,RowVersion")] User user)
+        public async Task<IActionResult> Create([Bind("UserName,Email,Password")] User user)
         {
+            var dbUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email || u.UserName == user.UserName);
+            if (dbUser is not null)
+            {
+                if (dbUser.Email == user.Email)
+                    ModelState.AddModelError("Email","Email already exists, please use another email");
+
+                if(dbUser.UserName == user.UserName)
+                    ModelState.AddModelError("UserName","Username already exists, please use another username");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(user);
@@ -150,14 +160,14 @@ namespace Micro_messageboard.Controllers
             {
                 _context.Users.Remove(user);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserExists(int id)
         {
-          return (_context.Users?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
     }
 }

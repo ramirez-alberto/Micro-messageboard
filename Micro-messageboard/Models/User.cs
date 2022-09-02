@@ -17,12 +17,13 @@ namespace Micro_messageboard.Models
 
         [Required]
         [StringLength(15, MinimumLength = 8)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         public DateTime CreationTime { get; set; }
         public DateTime UpdateTime { get; set; }
         
         [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public byte[]? RowVersion { get; set; }
     }
 }

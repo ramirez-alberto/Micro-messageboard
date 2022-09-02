@@ -8,7 +8,7 @@ namespace Micro_messageboard.Models
 
         [Required]
         [StringLength(12, MinimumLength = 4)]
-        [Display(Name ="User Name")]
+        [Display(Name = "User Name")]
         public string UserName { get; set; }
 
         [Required]
@@ -22,8 +22,10 @@ namespace Micro_messageboard.Models
 
         public DateTime CreationTime { get; set; }
         public DateTime UpdateTime { get; set; }
-        
+
         [Timestamp]
         public byte[]? RowVersion { get; set; }
+
+        public ICollection<Post>? Posts { get; set; }
     }
 }

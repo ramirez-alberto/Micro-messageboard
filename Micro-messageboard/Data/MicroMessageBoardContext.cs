@@ -9,11 +9,13 @@ namespace Micro_messageboard.Data
         { }
 
         public DbSet<User> Users { get; set; } = default!;
+        public DbSet<Post> Posts { get; set; } = default!;
 
                 /*specifying singular table names*/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Post>().ToTable("Post");
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

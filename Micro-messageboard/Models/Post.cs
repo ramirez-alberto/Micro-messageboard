@@ -21,11 +21,12 @@ namespace Micro_messageboard.Models
         public DateTime UpdateTime { get; set; }
 
         [Timestamp]
-        public byte[]? RowVersion { get; set; }
+        public byte[] RowVersion { get; set; }
 
         public int UserId { get; set; }
 
         public User User { get; set; }
+        public ICollection<Comment> Comments { get; set; }
 
     }
 }

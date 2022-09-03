@@ -4,6 +4,11 @@ namespace Micro_messageboard.Models
 {
     public class Comment
     {
+        public Comment()
+        {
+            CreatedDate = DateTime.Now;
+            UpdatedDate = DateTime.Now;
+        }
         public int CommentID { get; set; }
         [Required]
         [StringLength(140)]

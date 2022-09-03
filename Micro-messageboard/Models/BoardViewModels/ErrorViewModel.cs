@@ -1,4 +1,4 @@
-namespace Micro_messageboard.Models
+namespace Micro_messageboard.Models.BoardViewModels
 {
     public class ErrorViewModel
     {

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Micro_messageboard.Models.BoardViewModels.UserPostGroup>
+
+@{
+    ViewData["Title"] = "Posts by User";
+}
+
+<h2>Posts by User</h2>
+
+<table>
+    <tr>
+        <th>
+                UserName
+        </th>
+        <th>
+            Posts
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @item.UserPostCount
+            </td>
+        </tr>
+    }
+</table>

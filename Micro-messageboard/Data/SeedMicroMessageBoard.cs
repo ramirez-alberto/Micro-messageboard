@@ -31,7 +31,8 @@ namespace Micro_messageboard.Data
             {
                 new Post { Title="Post Example0", Body="A body", UserId=users.Single(u => u.UserName == "User1").UserId},
                 new Post { Title="Post Example1", Body="A body", UserId=users.Single(u => u.UserName == "User1").UserId},
-                new Post { Title="Post Example2", Body="A body", UserId=users.Single(u => u.UserName == "User1").UserId}
+                new Post { Title="Post Example2", Body="A body", UserId=users.Single(u => u.UserName == "User1").UserId},
+                new Post { Title="Post Example3", Body="A body", UserId=users.Single(u => u.UserName == "User2").UserId}
             };
 
             foreach (Post post in posts)

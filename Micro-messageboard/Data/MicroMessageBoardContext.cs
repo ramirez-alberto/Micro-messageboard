@@ -38,5 +38,7 @@ namespace Micro_messageboard.Data
 
             return base.SaveChangesAsync();
         }
+
+        public DbSet<Micro_messageboard.Models.Comment> Comment { get; set; }
     }
 }

@@ -1,13 +1,13 @@
 @model IEnumerable<Micro_messageboard.Models.Post>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Posts";
 }
 
-<h1>Index</h1>
+<h1>Posts</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Post</a>
 </p>
 <table class="table">
     <thead>
@@ -23,9 +23,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UpdateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RowVersion)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User)
@@ -49,10 +46,7 @@
                 @Html.DisplayFor(modelItem => item.UpdateTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RowVersion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
+                @Html.DisplayFor(modelItem => item.User.UserName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |

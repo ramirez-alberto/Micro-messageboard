@@ -11,13 +11,50 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Micro_messageboard.Migrations
 {
     [DbContext(typeof(MicroMessageBoardContext))]
-    [Migration("20220902085217_InitialCreate")]
+    [Migration("20220903031250_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
+
+            modelBuilder.Entity("Micro_messageboard.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CommentText")
+                        .IsRequired()
+                        .HasMaxLength(140)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CommentID");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comment");
+                });
 
             modelBuilder.Entity("Micro_messageboard.Models.Post", b =>
                 {
@@ -91,6 +128,25 @@ namespace Micro_messageboard.Migrations
                     b.ToTable("User", (string)null);
                 });
 
+            modelBuilder.Entity("Micro_messageboard.Models.Comment", b =>
+                {
+                    b.HasOne("Micro_messageboard.Models.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Micro_messageboard.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Micro_messageboard.Models.Post", b =>
                 {
                     b.HasOne("Micro_messageboard.Models.User", "User")
@@ -102,8 +158,15 @@ namespace Micro_messageboard.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Micro_messageboard.Models.Post", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("Micro_messageboard.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
